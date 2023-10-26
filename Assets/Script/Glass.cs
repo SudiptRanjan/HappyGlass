@@ -11,6 +11,8 @@ public class Glass : MonoBehaviour
     //public Rigidbody2D rigidbody2D;
     //public WaterDroplets waterDroplets;
     public int countWaterDrop;
+    //public ParticleSystem particleSystem;
+
     #endregion
 
     #region PRIVATE_VARS
@@ -51,8 +53,10 @@ public class Glass : MonoBehaviour
         }
         if (countWaterDrop > 55)
         {
+            //particleSystem.Play();
             glassSprite.sprite = full;
             //Debug.Log("full");
+            //particleSystem.Stop();
         }
     }
 

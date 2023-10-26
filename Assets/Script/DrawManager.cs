@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class DrawManager : MonoBehaviour
 {
@@ -21,12 +22,15 @@ public class DrawManager : MonoBehaviour
 
     #endregion
     #region PRIVATE_VARS
-
+    [SerializeField] Vector3 moveDistance;
+    [SerializeField] float moveDuration;
     Line currentLine;
     [SerializeField] 
     int cantDrawOverLayerIndex;
-   
+    //Vector3 penRotationForward;
+    //Vector3 penRotationBackWard;
     Camera cam;
+
     #endregion
 
     #region UNITY_CALLBACKS
@@ -40,36 +44,43 @@ public class DrawManager : MonoBehaviour
         cam = Camera.main;
         cantDrawOverLayerIndex = LayerMask.NameToLayer("CantDrawOver");
         pen.gameObject.SetActive(false);
+        //penRotationForward = new Vector3(0, 0, -8f);
+        //penRotationBackWard = new Vector3(0, 0, -8f);
+        PenRotation();
+
     }
 
 
     void Update()
     {
+        GameObject thisButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
 
         Vector2 penPosition = cam.ScreenToWorldPoint(Input.mousePosition);
         pen.transform.position = penPosition;
 
-        //if (EventSystem.current.IsPointerOverGameObject())
-        //{
-        //    Debug.Log("Clicked on the UI");
-        //}
-
         if (SM.inkBar.value > 0)
         {
 
-           
-
+            
             if (Input.GetMouseButtonDown(0))
             {
+
                 BeginDraw();
-                pen.gameObject.SetActive(true);
-                if (EventSystem.current.IsPointerOverGameObject())
+
+                if (thisButton != null)//Is click on UI
                 {
-                    Debug.Log("Clicked on the UI");
+                    Debug.Log("Clicked On Button");
+                    //pen.gameObject.SetActive(false);
+                    return;
                 }
+                else
+                {
+                    pen.gameObject.SetActive(true);
+
+                }
+
+
             }
-
-
 
             if (currentLine != null)
             {
@@ -78,14 +89,6 @@ public class DrawManager : MonoBehaviour
             }
         }
 
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    BeginDraw();
-        //}
-        //if (currentLine != null)
-        //{
-        //    Draw();
-        //}
 
 
         if (Input.GetMouseButtonUp(0))
@@ -124,10 +127,11 @@ public class DrawManager : MonoBehaviour
     void BeginDraw()
     {
         currentLine = Instantiate(linePrefab, this.transform).GetComponent<Line>();
-        linesCreatedList.Add(currentLine);
-        
+        //linesCreatedList.Add(currentLine);
+
         currentLine.UsePhysics(false);
         currentLine.SetPointsMinDistance(linePointsMinDistance);
+
         currentLine.SetLineWidth(lineWidth);
 
     }
@@ -147,10 +151,13 @@ public class DrawManager : MonoBehaviour
         {
             if (currentLine.pointsCount < 2)
             {
+
                 Destroy(currentLine.gameObject);
+               
             }
             else
             {
+                linesCreatedList.Add(currentLine);
                 currentLine.gameObject.layer = cantDrawOverLayerIndex;
                 obstricle.SetPhysicsTrue();
                 currentLine.UsePhysics(true);
@@ -158,8 +165,24 @@ public class DrawManager : MonoBehaviour
                 if(istapOff)
                 tap.ToStartWaterFlow();
                 istapOff = false;
+
             }
+
+            
         }
     }
+   
+    private void PenRotation()
+    {
+        //pen.transform.DORotate(penRotationForward, 0.5f).OnComplete(() => { pen.transform.DORotate(penRotationBackWard, 0.05f); }).SetLoops(-1, LoopType.Restart);
+        Sequence movementSequence = DOTween.Sequence();
+        movementSequence.Append(pen.transform.DORotate(moveDistance, moveDuration));
+        Debug.Log("Played");
+        movementSequence.Append(pen.transform.DORotate(moveDistance, moveDuration));
+        movementSequence.SetLoops(-1, LoopType.Yoyo);
+        if (movementSequence.IsPlaying()) return;
+        //pen.transform.DOKill();
+    }
+
     #endregion
 }

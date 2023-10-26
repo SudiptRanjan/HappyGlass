@@ -80,20 +80,19 @@ public class Tap : MonoBehaviour
             {
             //Instantiate(waterDrop, tapOpening.transform.position, Quaternion.identity);
             //if (!DM.istapOff)
-                if(j<= waterList.Count)
+            if (j <= waterList.Count)
+                Debug.Log(j+"j ==============waterList.Count "+ waterList.Count);
                 waterList[j].shoot(tapOpening,-transform.up);
                  //waterListCount--;
                 //if (waterListCount == 0)
                 //{
                 //    waterList.Clear();
                 //}
-                yield return new WaitForSeconds(0.02f);
+                yield return new WaitForSeconds(0.023f);
             }
 
         
        
-
-        
 
     }
     #endregion

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+
 public class Line : MonoBehaviour
 {
 
@@ -56,7 +57,7 @@ public class Line : MonoBehaviour
         if (pointsCount > 1)
             edgeCollider.points = points.ToArray();
 
-
+        //Debug.Log(pointsCount);
 
     }
 

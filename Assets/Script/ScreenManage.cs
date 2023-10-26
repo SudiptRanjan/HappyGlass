@@ -14,7 +14,6 @@ public class ScreenManage : MonoBehaviour
     public GameObject Star1, Star2, Star3;
     public Slider inkBar;
     public Canvas StartCanvas;
-    
     #endregion
 
 
@@ -92,15 +91,13 @@ public class ScreenManage : MonoBehaviour
         inkBar.value = 100;
 
         glass.ResetTheCount();
-        drawManager.DestroyCreatedLines();
+      
         Star3.gameObject.SetActive(true);
         Star2.gameObject.SetActive(true);
         Star1.gameObject.SetActive(true);
         GlassObj.transform.position = initialPosGlass;
         GlassObj.transform.rotation = initialRotaationGlass;
-
-     
-
+        drawManager.DestroyCreatedLines();
 
     }
 
