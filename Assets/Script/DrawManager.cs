@@ -27,8 +27,8 @@ public class DrawManager : MonoBehaviour
     Line currentLine;
     [SerializeField] 
     int cantDrawOverLayerIndex;
-    //Vector3 penRotationForward;
-    //Vector3 penRotationBackWard;
+    Vector3 penRotationForward;
+    Vector3 penRotationBackWard;
     Camera cam;
 
     #endregion
@@ -44,8 +44,8 @@ public class DrawManager : MonoBehaviour
         cam = Camera.main;
         cantDrawOverLayerIndex = LayerMask.NameToLayer("CantDrawOver");
         pen.gameObject.SetActive(false);
-        //penRotationForward = new Vector3(0, 0, -8f);
-        //penRotationBackWard = new Vector3(0, 0, -8f);
+        penRotationForward = new Vector3(0, 0, -8f);
+        penRotationBackWard = new Vector3(0, 0, -8f);
         PenRotation();
 
     }
@@ -53,52 +53,8 @@ public class DrawManager : MonoBehaviour
 
     void Update()
     {
-        GameObject thisButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
-
-        Vector2 penPosition = cam.ScreenToWorldPoint(Input.mousePosition);
-        pen.transform.position = penPosition;
-
-        if (SM.inkBar.value > 0)
-        {
-
-            
-            if (Input.GetMouseButtonDown(0))
-            {
-
-                BeginDraw();
-
-                if (thisButton != null)//Is click on UI
-                {
-                    Debug.Log("Clicked On Button");
-                    //pen.gameObject.SetActive(false);
-                    return;
-                }
-                else
-                {
-                    pen.gameObject.SetActive(true);
-
-                }
-
-
-            }
-
-            if (currentLine != null)
-            {
-                Draw();
-
-            }
-        }
-
-
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            pen.gameObject.SetActive(false);
-            EndDraw();
-        }
-
+        ToDrawLine();
     }
-
    
     #endregion
 
@@ -113,7 +69,6 @@ public class DrawManager : MonoBehaviour
         foreach (var linesCreated in linesCreatedList)
         {
             Destroy(linesCreated.gameObject);
-           
         }
         linesCreatedList.Clear();
         obstricle.ResetPosition();
@@ -128,7 +83,6 @@ public class DrawManager : MonoBehaviour
     {
         currentLine = Instantiate(linePrefab, this.transform).GetComponent<Line>();
         //linesCreatedList.Add(currentLine);
-
         currentLine.UsePhysics(false);
         currentLine.SetPointsMinDistance(linePointsMinDistance);
 
@@ -153,13 +107,16 @@ public class DrawManager : MonoBehaviour
             {
 
                 Destroy(currentLine.gameObject);
-               
             }
             else
             {
                 linesCreatedList.Add(currentLine);
                 currentLine.gameObject.layer = cantDrawOverLayerIndex;
-                obstricle.SetPhysicsTrue();
+                if(obstricle != null)
+                {
+                    obstricle.SetPhysicsTrue();
+
+                }
                 currentLine.UsePhysics(true);
                 currentLine = null;
                 if(istapOff)
@@ -167,21 +124,62 @@ public class DrawManager : MonoBehaviour
                 istapOff = false;
 
             }
-
-            
         }
+    }
+
+    private void ToDrawLine()
+    {
+        GameObject thisButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        Vector2 penPosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        pen.transform.position = penPosition;
+
+        if (SM.inkBar.value > 0)
+        {
+
+
+            if (Input.GetMouseButtonDown(0))
+            {
+
+                BeginDraw();
+
+                if (thisButton != null)//Is click on UI
+                {
+                    //Debug.Log("Clicked On Button");
+                    //pen.gameObject.SetActive(false);
+                    return;
+                }
+                else
+                {
+                    pen.gameObject.SetActive(true);
+
+                }
+
+
+            }
+
+            if (currentLine != null)
+            {
+                Draw();
+
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            pen.gameObject.SetActive(false);
+            EndDraw();
+        }
+
     }
    
     private void PenRotation()
     {
-        //pen.transform.DORotate(penRotationForward, 0.5f).OnComplete(() => { pen.transform.DORotate(penRotationBackWard, 0.05f); }).SetLoops(-1, LoopType.Restart);
+        //pen.transform.DORotate(penRotationForward, 0.5f).OnComplete(() => { pen.transform.DORotate(penRotationBackWard, 0.05f); }).SetLoops(-1, LoopType.Yoyo);
         Sequence movementSequence = DOTween.Sequence();
         movementSequence.Append(pen.transform.DORotate(moveDistance, moveDuration));
-        Debug.Log("Played");
         movementSequence.Append(pen.transform.DORotate(moveDistance, moveDuration));
         movementSequence.SetLoops(-1, LoopType.Yoyo);
         if (movementSequence.IsPlaying()) return;
-        //pen.transform.DOKill();
     }
 
     #endregion

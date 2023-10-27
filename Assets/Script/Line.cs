@@ -39,11 +39,7 @@ public class Line : MonoBehaviour
 
         points.Add(newPoint);
         //Debug.Log(pointsCount);
-        //float a, b;
-        //a = pointsCount;
         pointsCount++;
-        //b = a;
-        //Debug.Log(a + " ====a    b====" + b);
         CircleCollider2D circleCollider = this.gameObject.AddComponent<CircleCollider2D>();
         circleCollider.offset = newPoint;
         circleCollider.radius = circleColliderRadius;
@@ -85,6 +81,8 @@ public class Line : MonoBehaviour
         circleColliderRadius = width / 2f;
 
         edgeCollider.edgeRadius = circleColliderRadius;
+        //float a= (Mathf.Abs(previousPoint.y - newPoint.y)) / (Mathf.Abs(previousPoint.x-newPoint.x));
+        //a = Mathf.Rad2Deg * Mathf.Atan(angle);
     }
 
 
@@ -95,8 +93,7 @@ public class Line : MonoBehaviour
 
 
 }
-//float a= (Mathf.Abs(previousPoint.y - newPoint.y)) / (Mathf.Abs(previousPoint.x-newPoint.x));
-//a = Mathf.Rad2Deg * Mathf.Atan(angle);
+
 
 
 

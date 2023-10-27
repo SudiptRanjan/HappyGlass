@@ -91,7 +91,7 @@ public class ScreenManage : MonoBehaviour
         inkBar.value = 100;
 
         glass.ResetTheCount();
-      
+        NumberOfStars.instance.ScoreWhenGameOver();
         Star3.gameObject.SetActive(true);
         Star2.gameObject.SetActive(true);
         Star1.gameObject.SetActive(true);
@@ -115,7 +115,7 @@ public class ScreenManage : MonoBehaviour
     private void StarsOnScreen()
     {
         //Debug.Log(inkBar.value);
-
+        NumberOfStars.instance.AddScore(inkBar.value);
         if (count < 70)
         {
             Star3.gameObject.SetActive(false);

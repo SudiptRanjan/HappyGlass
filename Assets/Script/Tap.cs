@@ -46,9 +46,7 @@ public class Tap : MonoBehaviour
 
     public void RefillWater()
     {
-        //waterDropLets.transform.position = waterdropletPosition.position;
-        //waterList.Add(waterDropLets);
-        //waterDropLets.rb.isKinematic = true;
+        
         foreach( var waterDrops in waterList)
         {
             waterDrops.gameObject.SetActive(false);
@@ -74,14 +72,12 @@ public class Tap : MonoBehaviour
            
         }
 
-        //if (DM.istapOff)
+       
 
             for (int j = 0; j <= waterList.Count; j++)
             {
-            //Instantiate(waterDrop, tapOpening.transform.position, Quaternion.identity);
-            //if (!DM.istapOff)
-            if (j <= waterList.Count)
-                Debug.Log(j+"j ==============waterList.Count "+ waterList.Count);
+                //Instantiate(waterDrop, tapOpening.transform.position, Quaternion.identity);
+
                 waterList[j].shoot(tapOpening,-transform.up);
                  //waterListCount--;
                 //if (waterListCount == 0)
