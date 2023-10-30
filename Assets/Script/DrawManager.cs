@@ -18,7 +18,8 @@ public class DrawManager : MonoBehaviour
     public List<Line> linesCreatedList;
     public bool istapOff;
     public Transform pen;
-    public Obstricle obstricle;
+    public Camera cam;
+    //public Obstricle obstricle;
 
     #endregion
     #region PRIVATE_VARS
@@ -29,7 +30,7 @@ public class DrawManager : MonoBehaviour
     int cantDrawOverLayerIndex;
     Vector3 penRotationForward;
     Vector3 penRotationBackWard;
-    Camera cam;
+    //Camera cam;
 
     #endregion
 
@@ -55,7 +56,13 @@ public class DrawManager : MonoBehaviour
     {
         ToDrawLine();
     }
-   
+
+    private void FixedUpdate()
+    {
+        //ToDrawLine();
+
+    }
+
     #endregion
 
 
@@ -71,7 +78,7 @@ public class DrawManager : MonoBehaviour
             Destroy(linesCreated.gameObject);
         }
         linesCreatedList.Clear();
-        obstricle.ResetPosition();
+        //obstricle.ResetPosition();
 
     }
 
@@ -81,11 +88,11 @@ public class DrawManager : MonoBehaviour
 
     void BeginDraw()
     {
-        currentLine = Instantiate(linePrefab, this.transform).GetComponent<Line>();
-        //linesCreatedList.Add(currentLine);
+        currentLine = Instantiate(linePrefab, Vector3.zero,Quaternion.identity).GetComponent<Line>();
+
+        //currentLine = Instantiate(linePrefab, this.transform).GetComponent<Line>();
         currentLine.UsePhysics(false);
         currentLine.SetPointsMinDistance(linePointsMinDistance);
-
         currentLine.SetLineWidth(lineWidth);
 
     }
@@ -105,18 +112,14 @@ public class DrawManager : MonoBehaviour
         {
             if (currentLine.pointsCount < 2)
             {
-
                 Destroy(currentLine.gameObject);
             }
             else
             {
                 linesCreatedList.Add(currentLine);
                 currentLine.gameObject.layer = cantDrawOverLayerIndex;
-                if(obstricle != null)
-                {
-                    obstricle.SetPhysicsTrue();
+                //obstricle.SetPhysicsTrue();
 
-                }
                 currentLine.UsePhysics(true);
                 currentLine = null;
                 if(istapOff)
@@ -169,7 +172,6 @@ public class DrawManager : MonoBehaviour
             pen.gameObject.SetActive(false);
             EndDraw();
         }
-
     }
    
     private void PenRotation()

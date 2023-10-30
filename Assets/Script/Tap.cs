@@ -39,7 +39,6 @@ public class Tap : MonoBehaviour
             waterList.Add(water);
             //waterListCount = waterList.Count;
             waterDropLets.rb.isKinematic = true;
-          
         }
        
     }
@@ -50,7 +49,7 @@ public class Tap : MonoBehaviour
         foreach( var waterDrops in waterList)
         {
             waterDrops.gameObject.SetActive(false);
-            waterDrops.transform.position = tapOpening.transform.position;
+            waterDrops.transform.position = waterdropletPosition.transform.position;
             waterDrops.rb.isKinematic = true;
             Vector2 forceDirection = new Vector2(0.05f, 0.05f);
             waterDrops.rb.AddForce(forceDirection);

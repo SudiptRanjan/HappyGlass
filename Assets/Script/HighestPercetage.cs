@@ -51,7 +51,7 @@ public class HighestPercetage : MonoBehaviour
     {
         string path = Application.persistentDataPath + highScoreFilePath;
 
-        print(path);
+        //print(path);
         //Debug.Log(path + " Path of saved file");
         if (File.Exists(path))
         {

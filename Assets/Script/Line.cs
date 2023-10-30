@@ -36,7 +36,6 @@ public class Line : MonoBehaviour
         if (pointsCount >= 1 && Vector2.Distance(newPoint, GetLastPoint()) < pointsMinDistance)
             return;
 
-
         points.Add(newPoint);
         //Debug.Log(pointsCount);
         pointsCount++;
@@ -50,7 +49,7 @@ public class Line : MonoBehaviour
        
 
 
-        if (pointsCount > 1)
+        if (pointsCount > 1) 
             edgeCollider.points = points.ToArray();
 
         //Debug.Log(pointsCount);
@@ -81,6 +80,7 @@ public class Line : MonoBehaviour
         circleColliderRadius = width / 2f;
 
         edgeCollider.edgeRadius = circleColliderRadius;
+
         //float a= (Mathf.Abs(previousPoint.y - newPoint.y)) / (Mathf.Abs(previousPoint.x-newPoint.x));
         //a = Mathf.Rad2Deg * Mathf.Atan(angle);
     }

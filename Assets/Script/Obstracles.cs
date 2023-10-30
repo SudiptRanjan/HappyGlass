@@ -14,6 +14,19 @@ public class Obstricle : MonoBehaviour
         originalPosition = gameObject.transform.position;
     }
 
+
+    private void Update()
+    {
+        if(DrawManager.drawManagerInstance.istapOff== false)
+        {
+            SetPhysicsTrue();
+        }
+        else
+        {
+            ResetPosition();
+        }
+    }
+
     public void SetPhysicsTrue()
     {
         rd.isKinematic = false;
