@@ -6,20 +6,38 @@ public class Tap : MonoBehaviour
 {
     #region PUBLIC_VARS
     public WaterDroplets waterDropLets;
-    public Transform waterdropletPosition;
     public GameObject tapOpening;
     public List<WaterDroplets> waterList;
-    public DrawManager DM;
+    //public Transform waterdropletPosition;
     #endregion
     #region PRIVATE_VARS
-    //[SerializeField] float waterListCount;
+    [SerializeField] Transform waterdropletPosition;
+
     #endregion
 
     #region UNITY_CALLBACKS
     private void Start()
     {
+        waterdropletPosition = DrawManager.drawManagerInstance.waterDropPosition;
         InstantiateWaterDroplets();
+        
+       
     }
+
+   
+
+    private void OnEnable()
+    {
+        Events.startWaterFlow += ToStartWaterFlow;
+        Events.toRefillWater += RefillWater;
+    }
+
+    private void OnDisable()
+    {
+        Events.startWaterFlow -= ToStartWaterFlow;
+        Events.toRefillWater -= RefillWater;
+    }
+
     #endregion
 
     #region STATIC_FUNCTIONS
@@ -35,7 +53,7 @@ public class Tap : MonoBehaviour
     {
         for (int i = 0; i < 100; i++)
         {
-            WaterDroplets water = Instantiate(waterDropLets,waterdropletPosition);
+            WaterDroplets water = Instantiate(waterDropLets, waterdropletPosition.transform);
             waterList.Add(water);
             //waterListCount = waterList.Count;
             waterDropLets.rb.isKinematic = true;
@@ -53,8 +71,9 @@ public class Tap : MonoBehaviour
             waterDrops.rb.isKinematic = true;
             Vector2 forceDirection = new Vector2(0.05f, 0.05f);
             waterDrops.rb.AddForce(forceDirection);
-            DM.istapOff = true;
+            DrawManager.drawManagerInstance.istapOff = true;
         }
+
 
     }
 
@@ -71,8 +90,6 @@ public class Tap : MonoBehaviour
            
         }
 
-       
-
             for (int j = 0; j <= waterList.Count; j++)
             {
                 //Instantiate(waterDrop, tapOpening.transform.position, Quaternion.identity);
@@ -85,9 +102,6 @@ public class Tap : MonoBehaviour
                 //}
                 yield return new WaitForSeconds(0.023f);
             }
-
-        
-       
 
     }
     #endregion

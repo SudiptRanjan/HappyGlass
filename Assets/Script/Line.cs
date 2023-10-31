@@ -20,11 +20,7 @@ public class Line : MonoBehaviour
     #endregion
 
     #region UNITY_CALLBACKS
-    private void Start()
-    {
-
-    }
-
+   
     #endregion
 
     #region STATIC_FUNCTIONS
@@ -52,8 +48,6 @@ public class Line : MonoBehaviour
         if (pointsCount > 1) 
             edgeCollider.points = points.ToArray();
 
-        //Debug.Log(pointsCount);
-
     }
 
     public Vector2 GetLastPoint()
@@ -80,9 +74,6 @@ public class Line : MonoBehaviour
         circleColliderRadius = width / 2f;
 
         edgeCollider.edgeRadius = circleColliderRadius;
-
-        //float a= (Mathf.Abs(previousPoint.y - newPoint.y)) / (Mathf.Abs(previousPoint.x-newPoint.x));
-        //a = Mathf.Rad2Deg * Mathf.Atan(angle);
     }
 
 

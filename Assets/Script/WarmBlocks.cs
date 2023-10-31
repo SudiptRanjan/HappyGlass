@@ -4,23 +4,34 @@ using UnityEngine;
 
 public class WarmBlocks : MonoBehaviour
 {
-    public Tap tap;
-    public Transform waterDropPosition;
+
+
+    #region PUBLIC_VARS
     public ParticleSystem flameParticle;
-    // Start is called before the first frame update
+    #endregion
+    #region PRIVATE_VARS
+    Transform waterDropPosition;
+    #endregion
+
+    #region UNITY_CALLBACKS
     void Start()
     {
         flameParticle.Stop();
+        waterDropPosition = DrawManager.drawManagerInstance.waterDropPosition;
     }
+    #endregion
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #region STATIC_FUNCTIONS
+    #endregion
+
+    #region PUBLIC_FUNCTIONS
+
+    #endregion
+
+    #region PRIVATE_FUNCTIONS
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       WaterDroplets waterDroplets = collision.gameObject.GetComponent<WaterDroplets>();
+        WaterDroplets waterDroplets = collision.gameObject.GetComponent<WaterDroplets>();
 
         if (waterDroplets != null)
         {
@@ -37,4 +48,10 @@ public class WarmBlocks : MonoBehaviour
 
 
     }
+    #endregion
+
+
+
+
+
 }

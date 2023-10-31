@@ -8,12 +8,12 @@ public class ScreenManage : MonoBehaviour
     #region PUBLIC_VARS
     public GameObject gameScreen;
     public DrawManager drawManager;
-    public Tap tap;
-    public Glass glass;
-    public GameObject GlassObj;
     public GameObject Star1, Star2, Star3;
     public Slider inkBar;
     public Canvas StartCanvas;
+    public GameObject gameOverPanal;
+    public GameObject winOverPanal;
+    public static ScreenManage instance;
     #endregion
 
 
@@ -21,28 +21,25 @@ public class ScreenManage : MonoBehaviour
     float decreaseRate = 30.0f;
     float count;
     private bool isDragging = false;
-    private Vector3 initialPosGlass;
-    private Quaternion initialRotaationGlass;
     Vector3 lastPosition;
-   
     #endregion
 
     #region UNITY_CALLBACKS
     void Start()
     {
+        instance = this;
         count = 100;
-        initialPosGlass = GlassObj.gameObject.transform.position;
-        initialRotaationGlass = GlassObj.gameObject.transform.rotation;
         StartCanvas.gameObject.SetActive(true);
         gameScreen.SetActive(false);
         inkBar.value = count;
         inkBar.onValueChanged.AddListener(OnSliderValueChanged);
+        gameOverPanal.SetActive(false);
+        winOverPanal.SetActive(false);
     }
 
 
     void Update()
     {
-
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -84,28 +81,34 @@ public class ScreenManage : MonoBehaviour
 
     }
 
-
     public void RestartButton()
     {
-        tap.RefillWater();
+        Events.toRefillWater();
         inkBar.value = 100;
-
-        glass.ResetTheCount();
+        Events.toResetTheCount();
         NumberOfStars.instance.ScoreWhenGameOver();
         Star3.gameObject.SetActive(true);
         Star2.gameObject.SetActive(true);
         Star1.gameObject.SetActive(true);
-        GlassObj.transform.position = initialPosGlass;
-        GlassObj.transform.rotation = initialRotaationGlass;
+        Events.toResetTheGlassPosition();
         drawManager.DestroyCreatedLines();
+        gameOverPanal.SetActive(false);
+        Time.timeScale = 1;
 
     }
 
+    public void GamOverPopUp()
+    {
+        gameOverPanal.SetActive(true);
+        Time.timeScale = 0;
+
+    }
     #endregion
 
     #region PRIVATE_FUNCTIONS
 
-   
+
+
 
     private void OnSliderValueChanged(float newValue)
     {
@@ -114,7 +117,6 @@ public class ScreenManage : MonoBehaviour
 
     private void StarsOnScreen()
     {
-        //Debug.Log(inkBar.value);
         NumberOfStars.instance.AddScore(inkBar.value);
         if (count < 70)
         {
@@ -125,9 +127,10 @@ public class ScreenManage : MonoBehaviour
         {
             Star2.gameObject.SetActive(false);
         }
-        if (count < 15)
+        if (count < 0.1)
         {
             Star1.gameObject.SetActive(false);
+            GamOverPopUp();
         }
     }
 

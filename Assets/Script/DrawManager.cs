@@ -10,7 +10,6 @@ public class DrawManager : MonoBehaviour
     #region PUBLIC_VARS
     public GameObject linePrefab;
     public LayerMask cantDrawOverLayer;
-    public Tap tap;
     public float linePointsMinDistance;
     public float lineWidth;
     public ScreenManage SM;
@@ -18,8 +17,7 @@ public class DrawManager : MonoBehaviour
     public List<Line> linesCreatedList;
     public bool istapOff;
     public Transform pen;
-    public Camera cam;
-    //public Obstricle obstricle;
+    public Transform waterDropPosition;
 
     #endregion
     #region PRIVATE_VARS
@@ -30,9 +28,10 @@ public class DrawManager : MonoBehaviour
     int cantDrawOverLayerIndex;
     Vector3 penRotationForward;
     Vector3 penRotationBackWard;
-    //Camera cam;
-
+    Camera cam;
+    int count;
     #endregion
+
 
     #region UNITY_CALLBACKS
     private void Awake()
@@ -41,6 +40,7 @@ public class DrawManager : MonoBehaviour
     }
     void Start()
     {
+        
         istapOff = true;
         cam = Camera.main;
         cantDrawOverLayerIndex = LayerMask.NameToLayer("CantDrawOver");
@@ -51,16 +51,11 @@ public class DrawManager : MonoBehaviour
 
     }
 
-
     void Update()
     {
         ToDrawLine();
-    }
-
-    private void FixedUpdate()
-    {
-        //ToDrawLine();
-
+        if(istapOff)
+        Events.numnerOfWaterDrops(count);
     }
 
     #endregion
@@ -78,14 +73,12 @@ public class DrawManager : MonoBehaviour
             Destroy(linesCreated.gameObject);
         }
         linesCreatedList.Clear();
-        //obstricle.ResetPosition();
 
     }
 
     #endregion
 
     #region PRIVATE_FUNCTIONS
-
     void BeginDraw()
     {
         currentLine = Instantiate(linePrefab, Vector3.zero,Quaternion.identity).GetComponent<Line>();
@@ -118,18 +111,26 @@ public class DrawManager : MonoBehaviour
             {
                 linesCreatedList.Add(currentLine);
                 currentLine.gameObject.layer = cantDrawOverLayerIndex;
-                //obstricle.SetPhysicsTrue();
-
                 currentLine.UsePhysics(true);
                 currentLine = null;
-                if(istapOff)
-                tap.ToStartWaterFlow();
+                if (istapOff)
+                
+                Events.startWaterFlow();
                 istapOff = false;
+                if(count <55)
+                {
+                    //Debug.Log("Print");
+                    Invoke("IsGameOver", 10);
+                }
 
             }
         }
     }
 
+    private void IsGameOver()
+    {
+        ScreenManage.instance.GamOverPopUp();
+    }
     private void ToDrawLine()
     {
         GameObject thisButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
@@ -138,8 +139,6 @@ public class DrawManager : MonoBehaviour
 
         if (SM.inkBar.value > 0)
         {
-
-
             if (Input.GetMouseButtonDown(0))
             {
 
@@ -147,8 +146,7 @@ public class DrawManager : MonoBehaviour
 
                 if (thisButton != null)//Is click on UI
                 {
-                    //Debug.Log("Clicked On Button");
-                    //pen.gameObject.SetActive(false);
+                  
                     return;
                 }
                 else
@@ -156,14 +154,11 @@ public class DrawManager : MonoBehaviour
                     pen.gameObject.SetActive(true);
 
                 }
-
-
             }
 
             if (currentLine != null)
             {
                 Draw();
-
             }
         }
 
@@ -173,7 +168,8 @@ public class DrawManager : MonoBehaviour
             EndDraw();
         }
     }
-   
+
+    
     private void PenRotation()
     {
         //pen.transform.DORotate(penRotationForward, 0.5f).OnComplete(() => { pen.transform.DORotate(penRotationBackWard, 0.05f); }).SetLoops(-1, LoopType.Yoyo);
