@@ -21,10 +21,7 @@ public class Tap : MonoBehaviour
         waterdropletPosition = DrawManager.drawManagerInstance.waterDropPosition;
         InstantiateWaterDroplets();
         
-       
     }
-
-   
 
     private void OnEnable()
     {
@@ -72,6 +69,7 @@ public class Tap : MonoBehaviour
             Vector2 forceDirection = new Vector2(0.05f, 0.05f);
             waterDrops.rb.AddForce(forceDirection);
             DrawManager.drawManagerInstance.istapOff = true;
+            //Debug.Log("Next  Level reset Sccessfull");
         }
 
 

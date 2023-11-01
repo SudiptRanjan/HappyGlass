@@ -120,7 +120,7 @@ public class DrawManager : MonoBehaviour
                 if(count <55)
                 {
                     //Debug.Log("Print");
-                    Invoke("IsGameOver", 10);
+                    //Invoke("IsGameOver", 10);
                 }
 
             }

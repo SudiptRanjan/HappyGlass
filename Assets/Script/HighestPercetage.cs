@@ -12,27 +12,17 @@ public class HighestPercetage : MonoBehaviour
 {
 
     #region PUBLIC_VARS
+    public static HighestPercetage instance;
+    public TextMeshProUGUI highScoreTextForGameOver;
     #endregion
+
+
     #region PRIVATE_VARS
+    private float highScore = 0;
+    private const string highScoreFilePath = "/highscore.json";
     #endregion
 
     #region UNITY_CALLBACKS
-    #endregion
-
-    #region STATIC_FUNCTIONS
-    #endregion
-
-    #region PUBLIC_FUNCTIONS
-
-    #endregion
-
-    #region PRIVATE_FUNCTIONS
-    #endregion
-    public static HighestPercetage instance;
-    public TextMeshProUGUI highScoreTextForGameOver;
-
-    private float highScore = 0;
-    private const string highScoreFilePath = "/highscore.json";
 
     private void Awake()
     {
@@ -44,6 +34,14 @@ public class HighestPercetage : MonoBehaviour
         LoadHighScore();
         UpdateHighScoreText();
     }
+
+    #endregion
+
+    #region STATIC_FUNCTIONS
+    #endregion
+
+    #region PUBLIC_FUNCTIONS
+
     public void UpdateHighScore(float score)
     {
         if (score < highScore)
@@ -54,6 +52,15 @@ public class HighestPercetage : MonoBehaviour
 
         UpdateHighScoreText();
     }
+
+    #endregion
+
+    #region PRIVATE_FUNCTIONS
+    #endregion
+
+
+
+
 
 
     private void SaveHighScore()

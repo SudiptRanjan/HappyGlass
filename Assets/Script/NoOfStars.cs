@@ -5,7 +5,13 @@ using UnityEngine;
 [CreateAssetMenu]
 public class NoOfStars : ScriptableObject
 {
-    public int scoreObject;
-    public int leve;
+    public List<Stars> listOfStars;
 
+}
+
+[System.Serializable]
+public class Stars
+{
+    public int stars;
+    public string level;
 }
