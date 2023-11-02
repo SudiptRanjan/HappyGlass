@@ -26,8 +26,8 @@ public class DrawManager : MonoBehaviour
     Line currentLine;
     [SerializeField] 
     int cantDrawOverLayerIndex;
-    Vector3 penRotationForward;
-    Vector3 penRotationBackWard;
+    //Vector3 penRotationForward;
+    //Vector3 penRotationBackWard;
     Camera cam;
     int count;
     #endregion
@@ -45,8 +45,8 @@ public class DrawManager : MonoBehaviour
         cam = Camera.main;
         cantDrawOverLayerIndex = LayerMask.NameToLayer("CantDrawOver");
         pen.gameObject.SetActive(false);
-        penRotationForward = new Vector3(0, 0, -8f);
-        penRotationBackWard = new Vector3(0, 0, -8f);
+        //penRotationForward = new Vector3(0, 0, -8f);
+        //penRotationBackWard = new Vector3(0, 0, -8f);
         PenRotation();
 
     }

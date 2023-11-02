@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6338e7f4b384315830a1b0e5cc6510, type: 3}
   m_Name: Stars
   m_EditorClassIdentifier: 
-  listOfStars:
-  - stars: 1
-    level: 10
-  - stars: 2
-    level: 20
+  leveData:
+  - level: {fileID: 2993492118627335816, guid: 049cfb7bbbbd54b0e8fb4f3553693d55, type: 3}
+    stars: 0
+  - level: {fileID: 679551523695528888, guid: 51a132a275b1c439c84c52021f3a465f, type: 3}
+    stars: 0
+  - level: {fileID: 624376133864903199, guid: 9483a7e10db004dd9997594ec0009377, type: 3}
+    stars: 0
+  - level: {fileID: 2993492118627335816, guid: 6b63118a308424b3d9333d19a0f6b4f6, type: 3}
+    stars: 0

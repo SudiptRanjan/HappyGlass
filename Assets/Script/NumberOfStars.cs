@@ -45,7 +45,7 @@ public class NumberOfStars : MonoBehaviour
     public void AddScore(float udscore)
     {
         score = udscore;
-        HighestPercetage.instance.UpdateHighScore(score);
+        //HighestPercetage.instance.UpdateHighScore(score);
     }
 
 

@@ -54,12 +54,9 @@ public class Glass : MonoBehaviour
         if (countWaterDrop > 55)
         {
             //particleSystem.Play();
+            ScreenManage.instance.GamWinPopUp();
             glassSprite.sprite = full;
         }
-
-       
-
-       
 
     }
 

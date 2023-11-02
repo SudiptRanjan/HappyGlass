@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class StarCount
 {
-   public int starsCount =3;
+   public int starsCount ;
 
 }
 
@@ -14,8 +14,8 @@ public class LevelManager : MonoBehaviour
     public List<GameObject> levelPrefabs;
     public GameObject Star1, Star2, Star3;
     public static LevelManager instance;
-    private float counter;
-    private int currentLevelIndex = 0;
+    public int currentLevelIndex = 0;
+    public NoOfStars noOfStars;
 
     private void Start()
     {
@@ -24,15 +24,17 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(ScreenManage.instance.starsActCount);
+        //Debug.Log(ScreenManage.instance.starsActCount);
 
         //SetTheStars();
+        SetTheStars(currentLevelIndex);
 
     }
 
     public void LevelStarts()
     {
         ActivateLevel(currentLevelIndex);
+        LoadStars(currentLevelIndex);
 
     }
 
@@ -40,6 +42,7 @@ public class LevelManager : MonoBehaviour
     {
         ScreenManage.instance.NexLevelBotton();
         SaveStars(currentLevelIndex);
+
         DeactivateLevel(currentLevelIndex);
         currentLevelIndex++;
 
@@ -49,8 +52,6 @@ public class LevelManager : MonoBehaviour
         }
         ActivateLevel(currentLevelIndex);
         LoadStars(currentLevelIndex);
-
-
     }
 
     public void PreviousLevel()
@@ -70,54 +71,22 @@ public class LevelManager : MonoBehaviour
         }
 
         ActivateLevel(currentLevelIndex);
-
-        SaveStars(currentLevelIndex);
+        LoadStars(currentLevelIndex);
 
     }
 
     private void SetTheStars(int index)
     {
-        //counter = ScreenManage.instance.inkBar.value;
-        counter = starCountsList[index].starsCount;
+        int counter = starCountsList[index].starsCount;
+        //print(counter);
+        //int counter = ScreenManage.instance.starsActCount;
+        //noOfStars.leveData[index].stars = ScreenManage.instance.starsActCount;
         //Debug.Log(counter);
+        //if (index < starCountsList.Count)
+        Star1.SetActive(counter >= 1);
+        Star2.SetActive(counter >= 2);
+        Star3.SetActive(counter == 3);
 
-        if (counter == 3)
-        {
-            Star3.gameObject.SetActive(true);
-            Star2.gameObject.SetActive(true);
-            Star1.gameObject.SetActive(true);
-        }
-         if(counter == 2)
-        {
-           
-            Star3.gameObject.SetActive(false);
-            Star2.gameObject.SetActive(true);
-            Star1.gameObject.SetActive(true);
-
-        }
-       if( counter == 1)
-        {
-            Star3.gameObject.SetActive(false);
-            Star2.gameObject.SetActive(false);
-            Star1.gameObject.SetActive(true);
-
-        }
-
-        if (counter == 0)
-        {
-            Star3.gameObject.SetActive(false);
-            Star2.gameObject.SetActive(false);
-            Star1.gameObject.SetActive(false);
-
-        }
-        //if (counter < 40)
-        //{
-
-        //}
-        //if (counter < 0.1)
-        //{
-
-        //}
     }
 
     private void ActivateLevel(int index)
@@ -139,14 +108,13 @@ public class LevelManager : MonoBehaviour
     private void SaveStars(int index)
     {
         starCountsList[index].starsCount = ScreenManage.instance.starsActCount;
-        //if (index >= 0 && index < starCountsList.Count)
+        if (index >= 0 && index < starCountsList.Count)
         PlayerPrefs.SetInt("Level" + index + "Stars", starCountsList[index].starsCount);
     }
 
     private void LoadStars(int index)
     {
-        //if (index >= 0 && index < starCountsList.Count)
+        if (index >= 0 && index < starCountsList.Count)
         starCountsList[index].starsCount = PlayerPrefs.GetInt("Level" + index + "Stars",0);
-        //Debug.Log(starCountsList[index].starsCount);
     }
 }
