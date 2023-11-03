@@ -82,7 +82,7 @@ public class DrawManager : MonoBehaviour
     void BeginDraw()
     {
         currentLine = Instantiate(linePrefab, Vector3.zero,Quaternion.identity).GetComponent<Line>();
-
+        
         //currentLine = Instantiate(linePrefab, this.transform).GetComponent<Line>();
         currentLine.UsePhysics(false);
         currentLine.SetPointsMinDistance(linePointsMinDistance);
@@ -117,10 +117,10 @@ public class DrawManager : MonoBehaviour
                 
                 Events.startWaterFlow();
                 istapOff = false;
-                if(count <55)
+                if(count <20)
                 {
                     //Debug.Log("Print");
-                    //Invoke("IsGameOver", 10);
+                    Invoke("IsGameOver", 10);
                 }
 
             }
@@ -129,7 +129,8 @@ public class DrawManager : MonoBehaviour
 
     private void IsGameOver()
     {
-        ScreenManage.instance.GamOverPopUp();
+        //ScreenManage.instance.GamOverPopUp();
+        Debug.Log("game Over");
     }
     private void ToDrawLine()
     {

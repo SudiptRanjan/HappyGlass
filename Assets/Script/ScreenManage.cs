@@ -12,16 +12,18 @@ public class ScreenManage : MonoBehaviour
     public Slider inkBar;
     public Canvas StartCanvas;
     public GameObject gameOverPanal;
+    public Canvas homeCanvas;
     public GameObject winOverPanal;
     public static ScreenManage instance;
     public int starsActCount;
     #endregion
 
 
+
     #region PRIVATE_VARS
     float decreaseRate = 30.0f;
     float count;
-    int s = 3;
+    //int s = 3;
     private bool isDragging = false;
     Vector3 lastPosition;
     #endregion
@@ -79,11 +81,29 @@ public class ScreenManage : MonoBehaviour
 
     #region PUBLIC_FUNCTIONS
 
+
     public void StartButton()
     {
-        gameScreen.SetActive(true);
+        //gameScreen.SetActive(true);
+        homeCanvas.gameObject.SetActive(true);
         StartCanvas.gameObject.SetActive(false);
+        //LevelManager.instance.LevelStarts();
+
+    }
+
+    public void HomeButton()
+    {
         LevelManager.instance.LevelStarts();
+        homeCanvas.gameObject.SetActive(true);
+        gameScreen.SetActive(false);
+        NexLevelBotton();
+        //LevelManager.instance.LevelStarts();
+    }
+
+    public void LevelButtons()
+    {
+        homeCanvas.gameObject.SetActive(false);
+        gameScreen.SetActive(true);
 
     }
 
@@ -178,7 +198,6 @@ public class ScreenManage : MonoBehaviour
     //void GameOver()
     //{
     //    GamOverPopUp();
-
     //}
 
     #endregion

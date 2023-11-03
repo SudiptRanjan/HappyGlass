@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 719920460792301391}
   - component: {fileID: -5646687342547268411}
   - component: {fileID: 4271845037751116669}
-  - component: {fileID: -7076574028114330147}
   m_Layer: 0
   m_Name: Line
   m_TagString: Untagged
@@ -170,7 +169,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -226,18 +225,6 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!210 &-7076574028114330147
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1195393566450464025}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortAtRoot: 0
 --- !u!1 &6418710700848533755
 GameObject:
   m_ObjectHideFlags: 0

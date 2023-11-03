@@ -10,6 +10,7 @@ public class Obstricle : MonoBehaviour
     #region PRIVATE_VARS
     Rigidbody2D rd;
     Vector2 originalPosition;
+    Quaternion originalRotation;
 
     #endregion
 
@@ -18,6 +19,7 @@ public class Obstricle : MonoBehaviour
     {
         rd = GetComponent<Rigidbody2D>();
         originalPosition = gameObject.transform.position;
+        originalRotation = gameObject.transform.rotation;
     }
 
     private void Update()
@@ -52,6 +54,7 @@ public class Obstricle : MonoBehaviour
         rd.freezeRotation = true;
         //gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f,0f,0f));
         gameObject.transform.position = originalPosition;
+        gameObject.transform.rotation = originalRotation;
     }
     #endregion
 

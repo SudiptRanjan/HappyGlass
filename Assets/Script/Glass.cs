@@ -51,7 +51,7 @@ public class Glass : MonoBehaviour
             countWaterDrop++;
         }
 
-        if (countWaterDrop > 55)
+        if (countWaterDrop > 20)
         {
             //particleSystem.Play();
             ScreenManage.instance.GamWinPopUp();

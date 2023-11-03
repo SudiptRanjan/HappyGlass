@@ -14,10 +14,11 @@ public class LevelManager : MonoBehaviour
     public List<GameObject> levelPrefabs;
     public GameObject Star1, Star2, Star3;
     public static LevelManager instance;
-    public int currentLevelIndex = 0;
+    public int currentLevelCount = 0;
     public NoOfStars noOfStars;
 
-    private void Start()
+
+    private void Awake()
     {
         instance = this;
     }
@@ -27,62 +28,81 @@ public class LevelManager : MonoBehaviour
         //Debug.Log(ScreenManage.instance.starsActCount);
 
         //SetTheStars();
-        SetTheStars(currentLevelIndex);
+        SetTheStars(currentLevelCount);
 
     }
 
     public void LevelStarts()
     {
-        ActivateLevel(currentLevelIndex);
-        LoadStars(currentLevelIndex);
+        ActivateLevel(currentLevelCount);
+        LoadStars(currentLevelCount);
 
     }
 
     public void NextLevel()
     {
         ScreenManage.instance.NexLevelBotton();
-        SaveStars(currentLevelIndex);
+        SaveStars(currentLevelCount);
 
-        DeactivateLevel(currentLevelIndex);
-        currentLevelIndex++;
+        DeactivateLevel(currentLevelCount);
+        currentLevelCount++;
 
-        if (currentLevelIndex >= levelPrefabs.Count)
+        if (currentLevelCount >= levelPrefabs.Count)
         {
             return;
         }
-        ActivateLevel(currentLevelIndex);
-        LoadStars(currentLevelIndex);
+        //else
+        //{
+        //    return null;
+        //}
+        ActivateLevel(currentLevelCount);
+        LoadStars(currentLevelCount);
     }
 
     public void PreviousLevel()
     {
         ScreenManage.instance.NexLevelBotton();
-        SaveStars(currentLevelIndex);
+        SaveStars(currentLevelCount);
 
-        DeactivateLevel(currentLevelIndex);
+        DeactivateLevel(currentLevelCount);
 
-        currentLevelIndex--;
+        currentLevelCount--;
 
-        if (currentLevelIndex < 0)
+        if (currentLevelCount < 0)
         {
             Debug.Log("No previous levels available.");
-            currentLevelIndex = 0;
+            currentLevelCount = 0;
             return;
         }
 
-        ActivateLevel(currentLevelIndex);
-        LoadStars(currentLevelIndex);
+        ActivateLevel(currentLevelCount);
+        LoadStars(currentLevelCount);
 
     }
+
+    public void LoadLevel(int levelIndex)
+    {
+        if (levelIndex < 0 || levelIndex >= levelPrefabs.Count)
+        {
+            Debug.LogWarning("Invalid level index");
+            return;
+        }
+        SaveStars(currentLevelCount);
+
+        DeactivateLevel(currentLevelCount);
+
+        currentLevelCount = levelIndex;
+        
+
+        ActivateLevel(currentLevelCount);
+        LoadStars(currentLevelCount);
+
+    }
+
 
     private void SetTheStars(int index)
     {
         int counter = starCountsList[index].starsCount;
-        //print(counter);
-        //int counter = ScreenManage.instance.starsActCount;
-        //noOfStars.leveData[index].stars = ScreenManage.instance.starsActCount;
-        //Debug.Log(counter);
-        //if (index < starCountsList.Count)
         Star1.SetActive(counter >= 1);
         Star2.SetActive(counter >= 2);
         Star3.SetActive(counter == 3);

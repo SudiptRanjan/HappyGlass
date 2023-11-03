@@ -48,7 +48,7 @@ public class Tap : MonoBehaviour
 
     public void InstantiateWaterDroplets()
     {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 30; i++)
         {
             WaterDroplets water = Instantiate(waterDropLets, waterdropletPosition.transform);
             waterList.Add(water);
@@ -98,7 +98,7 @@ public class Tap : MonoBehaviour
                 //{
                 //    waterList.Clear();
                 //}
-                yield return new WaitForSeconds(0.023f);
+                yield return new WaitForSeconds(0.06f);
             }
 
     }

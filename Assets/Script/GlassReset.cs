@@ -10,6 +10,7 @@ public class GlassReset : MonoBehaviour
     #region PRIVATE_VARS
     private Vector3 initialPosGlass;
     private Quaternion initialRotaationGlass;
+   
     #endregion
 
     #region UNITY_CALLBACKS
