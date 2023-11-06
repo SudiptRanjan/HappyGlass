@@ -76,6 +76,16 @@ public class DrawManager : MonoBehaviour
 
     }
 
+    public void  DisablePopUp()
+    {
+        CancelInvoke("IsGameOver");
+        //Debug.Log("Reset");
+    }
+    public void IsGameOver()
+    {
+        ScreenManage.instance.GamOverPopUp();
+        Debug.Log("game Over");
+    }
     #endregion
 
     #region PRIVATE_FUNCTIONS
@@ -121,17 +131,18 @@ public class DrawManager : MonoBehaviour
                 {
                     //Debug.Log("Print");
                     Invoke("IsGameOver", 10);
+
                 }
 
             }
         }
     }
 
-    private void IsGameOver()
-    {
-        //ScreenManage.instance.GamOverPopUp();
-        Debug.Log("game Over");
-    }
+    //private void IsGameOver()
+    //{
+    //    ScreenManage.instance.GamOverPopUp();
+    //    Debug.Log("game Over");
+    //}
     private void ToDrawLine()
     {
         GameObject thisButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
@@ -143,7 +154,6 @@ public class DrawManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
 
-                BeginDraw();
 
                 if (thisButton != null)//Is click on UI
                 {
@@ -152,6 +162,7 @@ public class DrawManager : MonoBehaviour
                 }
                 else
                 {
+                    BeginDraw();
                     pen.gameObject.SetActive(true);
 
                 }

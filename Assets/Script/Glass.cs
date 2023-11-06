@@ -35,8 +35,6 @@ public class Glass : MonoBehaviour
 
     }
 
-   
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -54,13 +52,19 @@ public class Glass : MonoBehaviour
         if (countWaterDrop > 20)
         {
             //particleSystem.Play();
-            ScreenManage.instance.GamWinPopUp();
+            //ScreenManage.instance.GamWinPopUp();
+            Invoke("OnWin", 5);
             glassSprite.sprite = full;
         }
 
     }
 
-   
+    //private void OnWin()
+    //{
+    //    ScreenManage.instance.GamWinPopUp();
+
+    //}
+
     #endregion
 
     #region STATIC_FUNCTIONS
@@ -71,6 +75,13 @@ public class Glass : MonoBehaviour
     {
         countWaterDrop = 0;
         glassSprite.sprite = empty;
+        CancelInvoke("OnWin");
+
+    }
+
+    public void OnWin()
+    {
+        ScreenManage.instance.GamWinPopUp();
 
     }
 

@@ -93,17 +93,19 @@ public class ScreenManage : MonoBehaviour
 
     public void HomeButton()
     {
-        LevelManager.instance.LevelStarts();
+        //LevelManager.instance.LevelStarts();
+        NexLevelBotton();
         homeCanvas.gameObject.SetActive(true);
         gameScreen.SetActive(false);
-        NexLevelBotton();
-        //LevelManager.instance.LevelStarts();
+
     }
 
     public void LevelButtons()
     {
         homeCanvas.gameObject.SetActive(false);
         gameScreen.SetActive(true);
+        NexLevelBotton();
+
 
     }
 
@@ -125,18 +127,19 @@ public class ScreenManage : MonoBehaviour
 
     public void NexLevelBotton()
     {
-        Events.toRefillWater();
         inkBar.value = 100;
         Events.toResetTheCount();
+        Events.toRefillWater();
         NumberOfStars.instance.ScoreWhenGameOver();
-
         Star3.gameObject.SetActive(true);
         Star2.gameObject.SetActive(true);
         Star1.gameObject.SetActive(true);
-
         drawManager.DestroyCreatedLines();
         gameOverPanal.SetActive(false);
         winOverPanal.SetActive(false);
+
+        DrawManager.drawManagerInstance.DisablePopUp();
+
         Time.timeScale = 1;
     }
 
@@ -191,14 +194,14 @@ public class ScreenManage : MonoBehaviour
             //Star1.gameObject.SetActive(false);
             //starsActCount = 0;
             GamOverPopUp();
-            //Invoke("GameOver", 8);
+            //Invoke("GameOver", 10);
         }
     }
 
-    //void GameOver()
-    //{
-    //    GamOverPopUp();
-    //}
+    void GameOver()
+    {
+        GamOverPopUp();
+    }
 
     #endregion
 

@@ -64,12 +64,12 @@ public class Tap : MonoBehaviour
         foreach( var waterDrops in waterList)
         {
             waterDrops.gameObject.SetActive(false);
+            //Debug.Log("Next  Level reset Sccessfull");
             waterDrops.transform.position = waterdropletPosition.transform.position;
             waterDrops.rb.isKinematic = true;
             Vector2 forceDirection = new Vector2(0.05f, 0.05f);
             waterDrops.rb.AddForce(forceDirection);
             DrawManager.drawManagerInstance.istapOff = true;
-            //Debug.Log("Next  Level reset Sccessfull");
         }
 
 

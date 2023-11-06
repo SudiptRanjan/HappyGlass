@@ -10,14 +10,21 @@ public class StarCount
 
 public class LevelManager : MonoBehaviour
 {
+
+    #region PUBLIC_VARS
     public List<StarCount> starCountsList;
     public List<GameObject> levelPrefabs;
     public GameObject Star1, Star2, Star3;
     public static LevelManager instance;
     public int currentLevelCount = 0;
     public NoOfStars noOfStars;
+    #endregion
 
 
+    #region PRIVATE_VARS
+    #endregion
+
+    #region UNITY_CALLBACKS
     private void Awake()
     {
         instance = this;
@@ -32,6 +39,13 @@ public class LevelManager : MonoBehaviour
 
     }
 
+    #endregion
+
+    #region STATIC_FUNCTIONS
+    #endregion
+
+    #region PUBLIC_FUNCTIONS
+
     public void LevelStarts()
     {
         ActivateLevel(currentLevelCount);
@@ -41,65 +55,82 @@ public class LevelManager : MonoBehaviour
 
     public void NextLevel()
     {
-        ScreenManage.instance.NexLevelBotton();
         SaveStars(currentLevelCount);
+        ScreenManage.instance.NexLevelBotton();
 
         DeactivateLevel(currentLevelCount);
         currentLevelCount++;
 
         if (currentLevelCount >= levelPrefabs.Count)
         {
+            Debug.Log("No next level");
             return;
         }
-        //else
+       
+        ActivateLevel(currentLevelCount);
+        LoadStars(currentLevelCount);
+    }
+
+
+    //public void PreviousLevel()
+    //{
+        //ScreenManage.instance.NexLevelBotton();
+        //SaveStars(currentLevelCount);
+
+        //DeactivateLevel(currentLevelCount);
+
+        //currentLevelCount--;
+
+        //if (currentLevelCount < 0)
         //{
-        //    return null;
+        //    Debug.Log("No previous levels available.");
+        //    currentLevelCount = 0;
+        //    return;
         //}
-        ActivateLevel(currentLevelCount);
-        LoadStars(currentLevelCount);
-    }
 
-    public void PreviousLevel()
-    {
-        ScreenManage.instance.NexLevelBotton();
-        SaveStars(currentLevelCount);
-
-        DeactivateLevel(currentLevelCount);
-
-        currentLevelCount--;
-
-        if (currentLevelCount < 0)
-        {
-            Debug.Log("No previous levels available.");
-            currentLevelCount = 0;
-            return;
-        }
-
-        ActivateLevel(currentLevelCount);
-        LoadStars(currentLevelCount);
-
-    }
+        //ActivateLevel(currentLevelCount);
+        //LoadStars(currentLevelCount);
+    //}
 
     public void LoadLevel(int levelIndex)
     {
+        
         if (levelIndex < 0 || levelIndex >= levelPrefabs.Count)
         {
-            Debug.LogWarning("Invalid level index");
+            Debug.Log("null index");
             return;
         }
+        //Debug.Log(" The Current level " + levelIndex);
         SaveStars(currentLevelCount);
-
         DeactivateLevel(currentLevelCount);
-
-        currentLevelCount = levelIndex;
-        
-
+        currentLevelCount = levelIndex ;
+        //Debug.Log(" The after Current level " + levelIndex);
         ActivateLevel(currentLevelCount);
         LoadStars(currentLevelCount);
 
     }
 
+    public void LoadLevel1()
+    {
 
+        //if (levelIndex < 0 || levelIndex >= levelPrefabs.Count)
+        //{
+        //    Debug.Log("null index");
+        //    return;
+        //}
+        //Debug.Log(" The Current level " + levelIndex);
+        //SaveStars(currentLevelCount);
+        //DeactivateLevel(currentLevelCount);
+        //currentLevelCount = 5;
+        ////Debug.Log(" The after Current level " + levelIndex);
+        //ActivateLevel(currentLevelCount);
+        //LoadStars(currentLevelCount);
+
+    }
+
+    #endregion
+
+    #region PRIVATE_FUNCTIONS
     private void SetTheStars(int index)
     {
         int counter = starCountsList[index].starsCount;
@@ -129,12 +160,15 @@ public class LevelManager : MonoBehaviour
     {
         starCountsList[index].starsCount = ScreenManage.instance.starsActCount;
         if (index >= 0 && index < starCountsList.Count)
-        PlayerPrefs.SetInt("Level" + index + "Stars", starCountsList[index].starsCount);
+            PlayerPrefs.SetInt("Level" + index + "Stars", starCountsList[index].starsCount);
     }
 
     private void LoadStars(int index)
     {
         if (index >= 0 && index < starCountsList.Count)
-        starCountsList[index].starsCount = PlayerPrefs.GetInt("Level" + index + "Stars",0);
+            starCountsList[index].starsCount = PlayerPrefs.GetInt("Level" + index + "Stars", 0);
     }
+    #endregion
+
+
 }
