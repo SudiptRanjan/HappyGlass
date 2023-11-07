@@ -58,7 +58,7 @@ public class Glass : MonoBehaviour
         }
 
     }
-
+    
     //private void OnWin()
     //{
     //    ScreenManage.instance.GamWinPopUp();

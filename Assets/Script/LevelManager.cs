@@ -14,10 +14,11 @@ public class LevelManager : MonoBehaviour
     #region PUBLIC_VARS
     public List<StarCount> starCountsList;
     public List<GameObject> levelPrefabs;
+    public List<GameObject> listOfStarsOnMenu;
     public GameObject Star1, Star2, Star3;
     public static LevelManager instance;
     public int currentLevelCount = 0;
-    public NoOfStars noOfStars;
+
     #endregion
 
 
@@ -30,13 +31,20 @@ public class LevelManager : MonoBehaviour
         instance = this;
     }
 
+    private void Start()
+    {
+        for (int i = 0; i <= starCountsList.Count; i++)
+        {
+            LoadStars(i);
+        }
+
+        DisplayStars();
+
+    }
     private void Update()
     {
-        //Debug.Log(ScreenManage.instance.starsActCount);
-
-        //SetTheStars();
         SetTheStars(currentLevelCount);
-
+        
     }
 
     #endregion
@@ -59,6 +67,7 @@ public class LevelManager : MonoBehaviour
         ScreenManage.instance.NexLevelBotton();
 
         DeactivateLevel(currentLevelCount);
+        DisplayStars();
         currentLevelCount++;
 
         if (currentLevelCount >= levelPrefabs.Count)
@@ -66,35 +75,14 @@ public class LevelManager : MonoBehaviour
             Debug.Log("No next level");
             return;
         }
-       
+
         ActivateLevel(currentLevelCount);
         LoadStars(currentLevelCount);
     }
 
-
-    //public void PreviousLevel()
-    //{
-        //ScreenManage.instance.NexLevelBotton();
-        //SaveStars(currentLevelCount);
-
-        //DeactivateLevel(currentLevelCount);
-
-        //currentLevelCount--;
-
-        //if (currentLevelCount < 0)
-        //{
-        //    Debug.Log("No previous levels available.");
-        //    currentLevelCount = 0;
-        //    return;
-        //}
-
-        //ActivateLevel(currentLevelCount);
-        //LoadStars(currentLevelCount);
-    //}
-
     public void LoadLevel(int levelIndex)
     {
-        
+
         if (levelIndex < 0 || levelIndex >= levelPrefabs.Count)
         {
             Debug.Log("null index");
@@ -103,28 +91,11 @@ public class LevelManager : MonoBehaviour
         //Debug.Log(" The Current level " + levelIndex);
         SaveStars(currentLevelCount);
         DeactivateLevel(currentLevelCount);
-        currentLevelCount = levelIndex ;
+        currentLevelCount = levelIndex;
+        DisplayStars();
         //Debug.Log(" The after Current level " + levelIndex);
         ActivateLevel(currentLevelCount);
         LoadStars(currentLevelCount);
-
-    }
-
-    public void LoadLevel1()
-    {
-
-        //if (levelIndex < 0 || levelIndex >= levelPrefabs.Count)
-        //{
-        //    Debug.Log("null index");
-        //    return;
-        //}
-        //Debug.Log(" The Current level " + levelIndex);
-        //SaveStars(currentLevelCount);
-        //DeactivateLevel(currentLevelCount);
-        //currentLevelCount = 5;
-        ////Debug.Log(" The after Current level " + levelIndex);
-        //ActivateLevel(currentLevelCount);
-        //LoadStars(currentLevelCount);
 
     }
 
@@ -160,15 +131,55 @@ public class LevelManager : MonoBehaviour
     {
         starCountsList[index].starsCount = ScreenManage.instance.starsActCount;
         if (index >= 0 && index < starCountsList.Count)
+        {  
             PlayerPrefs.SetInt("Level" + index + "Stars", starCountsList[index].starsCount);
+
+        }
     }
 
     private void LoadStars(int index)
     {
         if (index >= 0 && index < starCountsList.Count)
+        {
             starCountsList[index].starsCount = PlayerPrefs.GetInt("Level" + index + "Stars", 0);
+            //Debug.Log(starCountsList[index].starsCount);
+        }
+
     }
+
+    private void DisplayStars()
+    {
+        for (int i = 0; i < levelPrefabs.Count; i++)
+        {
+            int stars = starCountsList[i].starsCount;
+            Transform buttonTransform = listOfStarsOnMenu[i].transform;
+
+            print(" buttonTransform.childCount ==" + buttonTransform.childCount);
+            for (int j = 0; j < buttonTransform.childCount; j++)
+            {
+
+
+                Transform starImage = buttonTransform.GetChild(j);
+                //Debug.Log(j);
+                if (j < stars)
+                {
+                    starImage.gameObject.SetActive(true);
+                }
+                else
+                {
+                    starImage.gameObject.SetActive(false);
+                }
+                Debug.Log("Level == " + i + "========No.Stars=======" + stars);
+            }
+        }
+
+    }
+
+
+
+
     #endregion
 
-
 }
+
+

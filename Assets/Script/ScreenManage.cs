@@ -189,7 +189,7 @@ public class ScreenManage : MonoBehaviour
             Star1.gameObject.SetActive(false);
             starsActCount = 0;
         }
-        if (count < 0.1)
+        if (count < 1)
         {
             //Star1.gameObject.SetActive(false);
             //starsActCount = 0;

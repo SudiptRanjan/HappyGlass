@@ -130,7 +130,7 @@ public class DrawManager : MonoBehaviour
                 if(count <20)
                 {
                     //Debug.Log("Print");
-                    Invoke("IsGameOver", 10);
+                    Invoke("IsGameOver", 15);
 
                 }
 
@@ -155,7 +155,7 @@ public class DrawManager : MonoBehaviour
             {
 
 
-                if (thisButton != null)//Is click on UI
+                if (thisButton != null)
                 {
                   
                     return;
