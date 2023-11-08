@@ -8,7 +8,6 @@ public class Tap : MonoBehaviour
     public WaterDroplets waterDropLets;
     public GameObject tapOpening;
     public List<WaterDroplets> waterList;
-    //public Transform waterdropletPosition;
     #endregion
     #region PRIVATE_VARS
     [SerializeField] Transform waterdropletPosition;
@@ -60,19 +59,20 @@ public class Tap : MonoBehaviour
 
     public void RefillWater()
     {
-        
-        foreach( var waterDrops in waterList)
+
+        foreach ( var waterDrops in waterList)
         {
             waterDrops.gameObject.SetActive(false);
-            //Destroy(waterDrops.gameObject);
             //Debug.Log("Next  Level reset Sccessfull");
             waterDrops.transform.position = waterdropletPosition.transform.position;
             waterDrops.rb.isKinematic = true;
             Vector2 forceDirection = new Vector2(0.05f, 0.05f);
             waterDrops.rb.AddForce(forceDirection);
             DrawManager.drawManagerInstance.istapOff = true;
-        }
 
+        }
+        //InstantiateWaterDroplets();
+        //ToStartWaterFlow();
     }
 
     #endregion
@@ -87,6 +87,7 @@ public class Tap : MonoBehaviour
             waterDrops.gameObject.SetActive(true);
            
         }
+
 
             for (int j = 0; j < waterList.Count; j++)
             {

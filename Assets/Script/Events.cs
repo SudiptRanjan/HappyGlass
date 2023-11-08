@@ -27,6 +27,9 @@ public static class Events
 
     public delegate void ToResetTheGlassPosition();
     public static ToResetTheGlassPosition toResetTheGlassPosition;
+
+    //public delegate void ToGetTapOpeningPosition(Transform transform);
+    //public static ToGetTapOpeningPosition toGetTapOpeningPosition;
     #endregion
 
     #region PUBLIC_FUNCTIONS

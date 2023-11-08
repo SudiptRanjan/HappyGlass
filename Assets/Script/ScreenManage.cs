@@ -16,6 +16,7 @@ public class ScreenManage : MonoBehaviour
     public GameObject winOverPanal;
     public static ScreenManage instance;
     public int starsActCount;
+    public ParticleSystem winParticle;
     #endregion
 
 
@@ -41,6 +42,7 @@ public class ScreenManage : MonoBehaviour
         inkBar.onValueChanged.AddListener(OnSliderValueChanged);
         gameOverPanal.SetActive(false);
         winOverPanal.SetActive(false);
+
     }
 
 
@@ -113,8 +115,10 @@ public class ScreenManage : MonoBehaviour
     {
         Events.toRefillWater();
         inkBar.value = 100;
+        starsActCount = 3;
         Events.toResetTheCount();
         NumberOfStars.instance.ScoreWhenGameOver();
+        DrawManager.drawManagerInstance.DisablePopUp();
         Star3.gameObject.SetActive(true);
         Star2.gameObject.SetActive(true);
         Star1.gameObject.SetActive(true);
@@ -122,12 +126,16 @@ public class ScreenManage : MonoBehaviour
         drawManager.DestroyCreatedLines();
         gameOverPanal.SetActive(false);
         winOverPanal.SetActive(false);
+        winParticle.Stop();
+        winParticle.Clear();
         Time.timeScale = 1;
     }
 
     public void NexLevelBotton()
     {
         inkBar.value = 100;
+        starsActCount = 3;
+        DrawManager.drawManagerInstance.DisablePopUp();
         Events.toResetTheCount();
         Events.toRefillWater();
         NumberOfStars.instance.ScoreWhenGameOver();
@@ -137,8 +145,8 @@ public class ScreenManage : MonoBehaviour
         drawManager.DestroyCreatedLines();
         gameOverPanal.SetActive(false);
         winOverPanal.SetActive(false);
-
-        DrawManager.drawManagerInstance.DisablePopUp();
+        winParticle.Stop();
+        winParticle.Clear();
 
         Time.timeScale = 1;
     }
@@ -173,6 +181,7 @@ public class ScreenManage : MonoBehaviour
         {
             starsActCount = 3;
         }
+
         if (count < 70)
         {
             Star3.gameObject.SetActive(false);
@@ -184,11 +193,14 @@ public class ScreenManage : MonoBehaviour
             starsActCount = 1;
         }
 
+
         if (count < 12)
         {
             Star1.gameObject.SetActive(false);
             starsActCount = 0;
         }
+
+
         if (count < 1)
         {
             //Star1.gameObject.SetActive(false);

@@ -55,6 +55,8 @@ public class Glass : MonoBehaviour
             //ScreenManage.instance.GamWinPopUp();
             Invoke("OnWin", 5);
             glassSprite.sprite = full;
+            ScreenManage.instance.winParticle.Play();
+
         }
 
     }

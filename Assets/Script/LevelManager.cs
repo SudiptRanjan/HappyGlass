@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
     public GameObject Star1, Star2, Star3;
     public static LevelManager instance;
     public int currentLevelCount = 0;
+    //public GameObject disableNextButton;
 
     #endregion
 
@@ -44,7 +45,6 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         SetTheStars(currentLevelCount);
-        
     }
 
     #endregion
@@ -68,13 +68,16 @@ public class LevelManager : MonoBehaviour
 
         DeactivateLevel(currentLevelCount);
         DisplayStars();
+
         currentLevelCount++;
 
         if (currentLevelCount >= levelPrefabs.Count)
         {
-            Debug.Log("No next level");
+
+            Debug.Log("There are no next level");
             return;
         }
+       
 
         ActivateLevel(currentLevelCount);
         LoadStars(currentLevelCount);
@@ -85,7 +88,7 @@ public class LevelManager : MonoBehaviour
 
         if (levelIndex < 0 || levelIndex >= levelPrefabs.Count)
         {
-            Debug.Log("null index");
+            Debug.Log("null");
             return;
         }
         //Debug.Log(" The Current level " + levelIndex);
@@ -104,7 +107,8 @@ public class LevelManager : MonoBehaviour
     #region PRIVATE_FUNCTIONS
     private void SetTheStars(int index)
     {
-        int counter = starCountsList[index].starsCount;
+        int counter = ScreenManage.instance.starsActCount;
+        //int counter = starCountsList[index].starsCount;
         Star1.SetActive(counter >= 1);
         Star2.SetActive(counter >= 2);
         Star3.SetActive(counter == 3);
@@ -154,7 +158,7 @@ public class LevelManager : MonoBehaviour
             int stars = starCountsList[i].starsCount;
             Transform buttonTransform = listOfStarsOnMenu[i].transform;
 
-            print(" buttonTransform.childCount ==" + buttonTransform.childCount);
+            //print(" buttonTransform.childCount ==" + buttonTransform.childCount);
             for (int j = 0; j < buttonTransform.childCount; j++)
             {
 
@@ -169,13 +173,11 @@ public class LevelManager : MonoBehaviour
                 {
                     starImage.gameObject.SetActive(false);
                 }
-                Debug.Log("Level == " + i + "========No.Stars=======" + stars);
+                //Debug.Log("Level == " + i + "========No.Stars=======" + stars);
             }
         }
 
     }
-
-
 
 
     #endregion
