@@ -110,35 +110,24 @@ public class ScreenManage : MonoBehaviour
 
 
     }
+    
 
     public void RestartButton()
     {
-        Events.toRefillWater();
-        inkBar.value = 100;
-        starsActCount = 3;
-        Events.toResetTheCount();
-        NumberOfStars.instance.ScoreWhenGameOver();
-        DrawManager.drawManagerInstance.DisablePopUp();
-        Star3.gameObject.SetActive(true);
-        Star2.gameObject.SetActive(true);
-        Star1.gameObject.SetActive(true);
+        
         Events.toResetTheGlassPosition();
-        drawManager.DestroyCreatedLines();
-        gameOverPanal.SetActive(false);
-        winOverPanal.SetActive(false);
-        winParticle.Stop();
-        winParticle.Clear();
-        Time.timeScale = 1;
+        NexLevelBotton();
     }
 
     public void NexLevelBotton()
     {
+        Events.toRefillWater();
         inkBar.value = 100;
         starsActCount = 3;
-        DrawManager.drawManagerInstance.DisablePopUp();
         Events.toResetTheCount();
-        Events.toRefillWater();
         NumberOfStars.instance.ScoreWhenGameOver();
+        DrawManager.drawManagerInstance.DisablePopUp();
+        LevelManager.instance.HintMethodOff();
         Star3.gameObject.SetActive(true);
         Star2.gameObject.SetActive(true);
         Star1.gameObject.SetActive(true);
@@ -147,8 +136,9 @@ public class ScreenManage : MonoBehaviour
         winOverPanal.SetActive(false);
         winParticle.Stop();
         winParticle.Clear();
-
         Time.timeScale = 1;
+
+        
     }
 
     public void GamOverPopUp()
@@ -214,6 +204,9 @@ public class ScreenManage : MonoBehaviour
     {
         GamOverPopUp();
     }
+
+    
+
 
     #endregion
 

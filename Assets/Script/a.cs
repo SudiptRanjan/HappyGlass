@@ -68,5 +68,7 @@ public class a : MonoBehaviour
         lineRenderer.endWidth = width;
         boxColliderSize = new Vector2(width, width);
     }
+
+
 }
 

@@ -56,6 +56,7 @@ public class DrawManager : MonoBehaviour
         ToDrawLine();
         if(istapOff)
         Events.numnerOfWaterDrops(count);
+
     }
 
     #endregion
@@ -138,11 +139,7 @@ public class DrawManager : MonoBehaviour
         }
     }
 
-    //private void IsGameOver()
-    //{
-    //    ScreenManage.instance.GamOverPopUp();
-    //    Debug.Log("game Over");
-    //}
+    
     private void ToDrawLine()
     {
         GameObject thisButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;

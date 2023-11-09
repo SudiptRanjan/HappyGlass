@@ -10,11 +10,11 @@ public class StarCount
 
 public class LevelManager : MonoBehaviour
 {
-
     #region PUBLIC_VARS
     public List<StarCount> starCountsList;
     public List<GameObject> levelPrefabs;
     public List<GameObject> listOfStarsOnMenu;
+    public List<GameObject> hintLineList;
     public GameObject Star1, Star2, Star3;
     public static LevelManager instance;
     public int currentLevelCount = 0;
@@ -38,14 +38,14 @@ public class LevelManager : MonoBehaviour
         {
             LoadStars(i);
         }
-
         DisplayStars();
-
     }
     private void Update()
     {
         SetTheStars(currentLevelCount);
     }
+
+    
 
     #endregion
 
@@ -73,7 +73,7 @@ public class LevelManager : MonoBehaviour
 
         if (currentLevelCount >= levelPrefabs.Count)
         {
-
+            DrawManager.drawManagerInstance.istapOff = false;
             Debug.Log("There are no next level");
             return;
         }
@@ -101,6 +101,19 @@ public class LevelManager : MonoBehaviour
         LoadStars(currentLevelCount);
 
     }
+
+    public void HintMethod()
+    {
+        hintLineList[currentLevelCount].SetActive(true);
+        Debug.Log("Hint On");
+    }
+    public void HintMethodOff()
+    {
+        hintLineList[currentLevelCount].SetActive(false);
+        Debug.Log("Hint off");
+
+    }
+    
 
     #endregion
 
@@ -161,8 +174,6 @@ public class LevelManager : MonoBehaviour
             //print(" buttonTransform.childCount ==" + buttonTransform.childCount);
             for (int j = 0; j < buttonTransform.childCount; j++)
             {
-
-
                 Transform starImage = buttonTransform.GetChild(j);
                 //Debug.Log(j);
                 if (j < stars)
@@ -176,10 +187,7 @@ public class LevelManager : MonoBehaviour
                 //Debug.Log("Level == " + i + "========No.Stars=======" + stars);
             }
         }
-
     }
-
-
     #endregion
 
 }
