@@ -44,9 +44,6 @@ public class LevelManager : MonoBehaviour
     {
         SetTheStars(currentLevelCount);
     }
-
-    
-
     #endregion
 
     #region STATIC_FUNCTIONS
@@ -75,9 +72,9 @@ public class LevelManager : MonoBehaviour
         {
             DrawManager.drawManagerInstance.istapOff = false;
             Debug.Log("There are no next level");
+            currentLevelCount = levelPrefabs.Count - 1; 
             return;
         }
-       
 
         ActivateLevel(currentLevelCount);
         LoadStars(currentLevelCount);
@@ -104,13 +101,15 @@ public class LevelManager : MonoBehaviour
 
     public void HintMethod()
     {
+        
         hintLineList[currentLevelCount].SetActive(true);
-        Debug.Log("Hint On");
+
+        // Debug.Log("Hint On");
     }
     public void HintMethodOff()
     {
         hintLineList[currentLevelCount].SetActive(false);
-        Debug.Log("Hint off");
+        // Debug.Log("Hint off");
 
     }
     

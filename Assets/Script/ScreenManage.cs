@@ -45,7 +45,6 @@ public class ScreenManage : MonoBehaviour
 
     }
 
-
     void Update()
     {
 
@@ -60,7 +59,6 @@ public class ScreenManage : MonoBehaviour
             isDragging = false;
         }
 
-       
         if (isDragging)
         {
             StarsOnScreen();
@@ -121,10 +119,10 @@ public class ScreenManage : MonoBehaviour
 
     public void NexLevelBotton()
     {
-        Events.toRefillWater();
         inkBar.value = 100;
         starsActCount = 3;
         Events.toResetTheCount();
+        Events.toRefillWater();
         NumberOfStars.instance.ScoreWhenGameOver();
         DrawManager.drawManagerInstance.DisablePopUp();
         LevelManager.instance.HintMethodOff();
@@ -193,8 +191,6 @@ public class ScreenManage : MonoBehaviour
 
         if (count < 1)
         {
-            //Star1.gameObject.SetActive(false);
-            //starsActCount = 0;
             GamOverPopUp();
             //Invoke("GameOver", 10);
         }
@@ -204,10 +200,6 @@ public class ScreenManage : MonoBehaviour
     {
         GamOverPopUp();
     }
-
-    
-
-
     #endregion
 
 }

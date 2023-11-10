@@ -11,6 +11,7 @@ public class Line : MonoBehaviour
     public Rigidbody2D rigidBody;
     [HideInInspector] public List<Vector2> points = new List<Vector2>();
     [HideInInspector] public int pointsCount = 0;
+    
     #endregion
     #region PRIVATE_VARS
 
@@ -46,7 +47,10 @@ public class Line : MonoBehaviour
 
 
         if (pointsCount > 1) 
+        {
             edgeCollider.points = points.ToArray();
+
+        }
 
     }
 

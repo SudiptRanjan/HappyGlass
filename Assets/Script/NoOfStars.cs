@@ -12,6 +12,7 @@ public class NoOfStars : ScriptableObject
 [System.Serializable]
 public class Stars
 {
+    
     //public GameObject level;
     public int stars;
     //public string level;

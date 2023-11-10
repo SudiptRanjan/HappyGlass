@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tap : MonoBehaviour
 {
+    
     #region PUBLIC_VARS
     public WaterDroplets waterDropLets;
     public GameObject tapOpening;
@@ -54,9 +55,7 @@ public class Tap : MonoBehaviour
             //waterListCount = waterList.Count;
             waterDropLets.rb.isKinematic = true;
         }
-       
     }     
-
     public void RefillWater()
     {
 
