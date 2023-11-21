@@ -18,6 +18,7 @@ public class DrawManager : MonoBehaviour
     public bool istapOff;
     public Transform pen;
     public Transform waterDropPosition;
+    public  int count;
 
     #endregion
     #region PRIVATE_VARS
@@ -29,7 +30,6 @@ public class DrawManager : MonoBehaviour
     //Vector3 penRotationForward;
     //Vector3 penRotationBackWard;
     Camera cam;
-    int count;
     #endregion
 
 
@@ -54,9 +54,6 @@ public class DrawManager : MonoBehaviour
     void Update()
     {
         ToDrawLine();
-        if(istapOff)
-        Events.numnerOfWaterDrops(count);
-
     }
 
     #endregion
@@ -85,29 +82,34 @@ public class DrawManager : MonoBehaviour
     public void IsGameOver()
     {
         ScreenManage.instance.GamOverPopUp();
-        Debug.Log("game Over");
+        Debug.Log("IsOver2");
     }
     #endregion
 
     #region PRIVATE_FUNCTIONS
     void BeginDraw()
     {
+          
         currentLine = Instantiate(linePrefab, Vector3.zero,Quaternion.identity).GetComponent<Line>();
-        
         //currentLine = Instantiate(linePrefab, this.transform).GetComponent<Line>();
         currentLine.UsePhysics(false);
         currentLine.SetPointsMinDistance(linePointsMinDistance);
         currentLine.SetLineWidth(lineWidth);
-
+       
     }
     void Draw()
     {
         Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.CircleCast(mousePosition, lineWidth / 3f, Vector2.zero, 1f, cantDrawOverLayer);
         if (hit)
+        {
             EndDraw();
+           
+        }
         else
+        {
             currentLine.AddPoint(mousePosition);
+        }
     }
 
     void EndDraw()
@@ -124,15 +126,16 @@ public class DrawManager : MonoBehaviour
                 currentLine.gameObject.layer = cantDrawOverLayerIndex;
                 currentLine.UsePhysics(true);
                 currentLine = null;
+                
                 if (istapOff)
                 
                 Events.startWaterFlow();
                 istapOff = false;
                 if(count <20)
                 {
-                    //Debug.Log("Print");
+                    // Debug.Log("Print");
                     Invoke("IsGameOver", 15);
-
+           
                 }
 
             }
@@ -150,8 +153,6 @@ public class DrawManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-
-
                 if (thisButton != null)
                 {
                   

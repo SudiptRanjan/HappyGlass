@@ -28,8 +28,10 @@ public static class Events
     public delegate void ToResetTheGlassPosition();
     public static ToResetTheGlassPosition toResetTheGlassPosition;
 
-    //public delegate void ToGetTapOpeningPosition(Transform transform);
-    //public static ToGetTapOpeningPosition toGetTapOpeningPosition;
+    public delegate void ToGetTapOpeningPosition(GameObject transform);
+    public static ToGetTapOpeningPosition toGetTapOpeningPosition;
+
+   
     #endregion
 
     #region PUBLIC_FUNCTIONS

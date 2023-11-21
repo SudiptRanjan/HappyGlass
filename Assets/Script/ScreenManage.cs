@@ -20,11 +20,10 @@ public class ScreenManage : MonoBehaviour
     #endregion
 
 
-
     #region PRIVATE_VARS
     float decreaseRate = 30.0f;
-    float count;
-    //int s = 3;
+    public float count;
+    int s  = 0;
     private bool isDragging = false;
     Vector3 lastPosition;
     #endregion
@@ -71,16 +70,15 @@ public class ScreenManage : MonoBehaviour
            
             lastPosition = Input.mousePosition;
         }
-
+    //    Events.numnerOfWaterDrops(s);
+        // Debug.Log("The  Count====" + s);
     }
 
     #endregion
-
     #region STATIC_FUNCTIONS
     #endregion
 
     #region PUBLIC_FUNCTIONS
-
 
     public void StartButton()
     {
@@ -106,7 +104,6 @@ public class ScreenManage : MonoBehaviour
         gameScreen.SetActive(true);
         NexLevelBotton();
 
-
     }
     
 
@@ -130,13 +127,13 @@ public class ScreenManage : MonoBehaviour
         Star2.gameObject.SetActive(true);
         Star1.gameObject.SetActive(true);
         drawManager.DestroyCreatedLines();
+        CancelInvoke("GameOver");
         gameOverPanal.SetActive(false);
         winOverPanal.SetActive(false);
         winParticle.Stop();
         winParticle.Clear();
         Time.timeScale = 1;
 
-        
     }
 
     public void GamOverPopUp()
@@ -181,24 +178,26 @@ public class ScreenManage : MonoBehaviour
             starsActCount = 1;
         }
 
-
         if (count < 12)
         {
             Star1.gameObject.SetActive(false);
             starsActCount = 0;
         }
 
-
         if (count < 1)
         {
-            GamOverPopUp();
-            //Invoke("GameOver", 10);
+            // GamOverPopUp();
+            Invoke("GameOver", 10);
         }
+        
     }
+
 
     void GameOver()
     {
-        GamOverPopUp();
+            GamOverPopUp();
+            Debug.Log("2222222");
+        // GamOverPopUp();
     }
     #endregion
 

@@ -15,7 +15,7 @@ public class WaterDroplets : MonoBehaviour
     #region UNITY_CALLBACKS
     void Start()
     {
-        forceDirection = new Vector2(0.05f, 0.05f);
+        forceDirection = new Vector2(0.1f, 0.1f);
     }
 
     void Update()

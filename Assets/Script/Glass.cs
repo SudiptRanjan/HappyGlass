@@ -17,21 +17,21 @@ public class Glass : MonoBehaviour
     #endregion
 
     #region UNITY_CALLBACKS
-    private void Start()
-    {
-        //Invoke("Nothing", 3);
-        
-    }
+  private void Update()
+  {
+    NumberOfDrops(countWaterDrop);
+    
+  }
     private void OnEnable()
     {
         Events.toResetTheCount += ResetTheCount;
-        Events.numnerOfWaterDrops += NumberOfDrops;
+        // Events.numnerOfWaterDrops += NumberOfDrops;
     }
 
     private void OnDisable()
     {
         Events.toResetTheCount -= ResetTheCount;
-        Events.numnerOfWaterDrops -= NumberOfDrops;
+        // Events.numnerOfWaterDrops -= NumberOfDrops;
 
     }
 
@@ -45,7 +45,7 @@ public class Glass : MonoBehaviour
             waterDroplets.rb.velocity = new Vector2(0, 0);
 
             glassSprite.sprite = half;
-            //Debug.Log("waterDroplets.rb.velocity==="+ waterDroplets.rb.velocity);
+        //    Debug.Log("velocity" + waterDroplets.rb.velocity);
             countWaterDrop++;
         }
 
@@ -59,14 +59,7 @@ public class Glass : MonoBehaviour
 
         }
 
-    }
-    
-    //private void OnWin()
-    //{
-    //    ScreenManage.instance.GamWinPopUp();
-
-    //}
-
+    } 
     #endregion
 
     #region STATIC_FUNCTIONS
@@ -93,10 +86,14 @@ public class Glass : MonoBehaviour
     private void NumberOfDrops(int No)
     {
         No = countWaterDrop;
+        // Debug.Log("The  Count====" + No);
+        if(No<20 && ScreenManage.instance.count < 1 )
+        {
+            // DrawManager.drawManagerInstance. Invoke("IsGameOver", 15);
+            ScreenManage.instance.Invoke("GameOver", 10);
+            // Debug.Log(ScreenManage.instance.count);
+        }
     }
 
-  
-
     #endregion
-
 }

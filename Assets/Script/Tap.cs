@@ -9,10 +9,10 @@ public class Tap : MonoBehaviour
     public WaterDroplets waterDropLets;
     public GameObject tapOpening;
     public List<WaterDroplets> waterList;
+    
     #endregion
     #region PRIVATE_VARS
     [SerializeField] Transform waterdropletPosition;
-
     #endregion
 
     #region UNITY_CALLBACKS
@@ -81,6 +81,8 @@ public class Tap : MonoBehaviour
     IEnumerator StartSpawning()
     {
        
+      
+
         foreach (var waterDrops in waterList)
         {
             waterDrops.gameObject.SetActive(true);
@@ -90,13 +92,8 @@ public class Tap : MonoBehaviour
 
             for (int j = 0; j < waterList.Count; j++)
             {
-                //Instantiate(waterDrop, tapOpening.transform.position, Quaternion.identity);
                 waterList[j].shoot(tapOpening,-transform.up);
-                 //waterListCount--;
-                //if (waterListCount == 0)
-                //{
-                //    waterList.Clear();
-                //}
+               
                 yield return new WaitForSeconds(0.06f);
             }
 

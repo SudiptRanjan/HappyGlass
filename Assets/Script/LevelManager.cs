@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 [System.Serializable]
 public class StarCount
@@ -18,12 +19,12 @@ public class LevelManager : MonoBehaviour
     public GameObject Star1, Star2, Star3;
     public static LevelManager instance;
     public int currentLevelCount = 0;
-    //public GameObject disableNextButton;
-
+    public GameObject disableNextLevelButton;
+    public bool isLevelCompleted = false;
     #endregion
 
-
     #region PRIVATE_VARS
+     int counter;
     #endregion
 
     #region UNITY_CALLBACKS
@@ -42,7 +43,8 @@ public class LevelManager : MonoBehaviour
     }
     private void Update()
     {
-        SetTheStars(currentLevelCount);
+        SetTheStars();
+        // UnlockNextLevel();
     }
     #endregion
 
@@ -55,14 +57,13 @@ public class LevelManager : MonoBehaviour
     {
         ActivateLevel(currentLevelCount);
         LoadStars(currentLevelCount);
-
     }
-
+  
     public void NextLevel()
     {
         SaveStars(currentLevelCount);
         ScreenManage.instance.NexLevelBotton();
-
+        UnlockNextLevel();
         DeactivateLevel(currentLevelCount);
         DisplayStars();
 
@@ -70,40 +71,47 @@ public class LevelManager : MonoBehaviour
 
         if (currentLevelCount >= levelPrefabs.Count)
         {
+            // SaveStars(currentLevelCount);
             DrawManager.drawManagerInstance.istapOff = false;
             Debug.Log("There are no next level");
-            currentLevelCount = levelPrefabs.Count - 1; 
+            // currentLevelCount = levelPrefabs.Count - 1; 
             return;
         }
-
+        
+        // if(isLevelCompleted)
+        // {
+        //      ActivateLevel(currentLevelCount);
+        //      LoadStars(currentLevelCount);
+        //      DisableNextButton();
+        // }
         ActivateLevel(currentLevelCount);
         LoadStars(currentLevelCount);
+        DisableNextButton();
     }
 
     public void LoadLevel(int levelIndex)
     {
-
         if (levelIndex < 0 || levelIndex >= levelPrefabs.Count)
         {
             Debug.Log("null");
             return;
         }
-        //Debug.Log(" The Current level " + levelIndex);
+        // Debug.Log(" The Current level " + levelIndex);
+
         SaveStars(currentLevelCount);
         DeactivateLevel(currentLevelCount);
         currentLevelCount = levelIndex;
         DisplayStars();
-        //Debug.Log(" The after Current level " + levelIndex);
+        // Debug.Log(" The after Current level " + levelIndex);
         ActivateLevel(currentLevelCount);
         LoadStars(currentLevelCount);
+        DisableNextButton();
 
     }
 
     public void HintMethod()
     {
-        
         hintLineList[currentLevelCount].SetActive(true);
-
         // Debug.Log("Hint On");
     }
     public void HintMethodOff()
@@ -112,20 +120,36 @@ public class LevelManager : MonoBehaviour
         // Debug.Log("Hint off");
 
     }
+
     
+    public void UnlockNextLevel()
+    {
+        if (counter == 3)
+        {
+            isLevelCompleted = true;
+            Debug.Log("You have unlocked the next level" );
+            // Debug.Log(cou);
+        }
+        else
+        {
+            Debug.Log("You have to get 3 stars to unlock the next level" + counter);
+        }
+    }
 
     #endregion
 
     #region PRIVATE_FUNCTIONS
-    private void SetTheStars(int index)
+    private void SetTheStars()
     {
-        int counter = ScreenManage.instance.starsActCount;
+         counter = ScreenManage.instance.starsActCount;
+        //  Debug.Log(counter);
         //int counter = starCountsList[index].starsCount;
         Star1.SetActive(counter >= 1);
         Star2.SetActive(counter >= 2);
         Star3.SetActive(counter == 3);
-
+        
     }
+
 
     private void ActivateLevel(int index)
     {
@@ -163,6 +187,19 @@ public class LevelManager : MonoBehaviour
 
     }
 
+    private void DisableNextButton()
+    {
+        if (currentLevelCount == levelPrefabs.Count - 1)
+        {
+            disableNextLevelButton.SetActive(false);
+            Debug.Log(currentLevelCount + "        " + levelPrefabs.Count);
+        }
+        else
+        {
+            disableNextLevelButton.SetActive(true);
+        }
+    }
+     
     private void DisplayStars()
     {
         for (int i = 0; i < levelPrefabs.Count; i++)

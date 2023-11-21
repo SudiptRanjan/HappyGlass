@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-
 public class Line : MonoBehaviour
 {
 
@@ -44,12 +43,9 @@ public class Line : MonoBehaviour
         lineRenderer.positionCount = pointsCount;
         lineRenderer.SetPosition(pointsCount - 1, newPoint);
        
-
-
         if (pointsCount > 1) 
         {
             edgeCollider.points = points.ToArray();
-
         }
 
     }
