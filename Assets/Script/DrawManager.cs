@@ -48,7 +48,6 @@ public class DrawManager : MonoBehaviour
         //penRotationForward = new Vector3(0, 0, -8f);
         //penRotationBackWard = new Vector3(0, 0, -8f);
         PenRotation();
-
     }
 
     void Update()

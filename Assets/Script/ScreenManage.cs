@@ -44,6 +44,7 @@ public class ScreenManage : MonoBehaviour
 
     }
 
+
     void Update()
     {
 

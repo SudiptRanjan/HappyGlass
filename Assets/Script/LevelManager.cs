@@ -84,6 +84,10 @@ public class LevelManager : MonoBehaviour
         //      LoadStars(currentLevelCount);
         //      DisableNextButton();
         // }
+        // else
+        // {
+        //     Debug.Log("You have to get 3 stars to unlock the next level");
+        // }
         ActivateLevel(currentLevelCount);
         LoadStars(currentLevelCount);
         DisableNextButton();
@@ -136,6 +140,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+   
     #endregion
 
     #region PRIVATE_FUNCTIONS
